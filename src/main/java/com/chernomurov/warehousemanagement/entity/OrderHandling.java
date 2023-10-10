@@ -2,11 +2,11 @@ package com.chernomurov.warehousemanagement.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -15,13 +15,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SupplierRate {
+public class OrderHandling {
 
     @Id
-    @OneToOne
-    private Supplier supplier;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-    private BigDecimal reliabilityRate;
+    @Id
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "working_team_id", nullable = false)
+    private WorkingTeam workingTeam;
 
     @Override
     public final boolean equals(Object o) {
@@ -30,8 +34,8 @@ public class SupplierRate {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        SupplierRate that = (SupplierRate) o;
-        return getSupplier() != null && Objects.equals(getSupplier(), that.getSupplier());
+        OrderHandling that = (OrderHandling) o;
+        return getOrder() != null && Objects.equals(getOrder(), that.getOrder());
     }
 
     @Override
