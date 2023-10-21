@@ -1,10 +1,13 @@
 package com.chernomurov.warehousemanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,6 +28,22 @@ public class WorkingTeam {
     private Integer peopleAmount;
 
     private String specialization;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, mappedBy = "workingTeams")
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }, mappedBy = "workingTeams")
+    @JsonIgnore
+    private Set<Shipment> shipments = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {

@@ -5,7 +5,9 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +30,16 @@ public class Order {
     private Integer amount;
 
     private LocalDateTime date;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "order_handling",
+    joinColumns = {@JoinColumn(name = "order_id")},
+    inverseJoinColumns = {@JoinColumn(name = "working_team_id")})
+    private Set<WorkingTeam> workingTeams = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "responsible_user_id")

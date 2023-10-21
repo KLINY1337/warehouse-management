@@ -1,13 +1,12 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +27,16 @@ public class User {
     private String patronymic;
 
     private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "users_roles",
+    joinColumns = {@JoinColumn(name = "user_id")},
+    inverseJoinColumns = {@JoinColumn(name = "user_role_id")})
+    private Set<UserRole> userRoles = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {

@@ -1,11 +1,13 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,7 +18,18 @@ import java.util.Objects;
 public class UserRole {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, mappedBy = "userRoles")
+    @JsonIgnore
+    private Set<User> users = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -26,7 +39,7 @@ public class UserRole {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         UserRole userRole = (UserRole) o;
-        return getName() != null && Objects.equals(getName(), userRole.getName());
+        return getId() != null && Objects.equals(getId(), userRole.getId());
     }
 
     @Override

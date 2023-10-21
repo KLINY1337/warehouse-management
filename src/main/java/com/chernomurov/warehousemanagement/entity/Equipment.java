@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,9 +20,15 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "equipment_type_id")
-    private EquipmentType equipmentType;
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "equipment_use",
+    joinColumns = {@JoinColumn(name = "equipment_id")},
+    inverseJoinColumns = {@JoinColumn(name = "equipment_type_id")})
+    private Set<EquipmentType> equipmentTypes = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {

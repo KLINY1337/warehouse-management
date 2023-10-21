@@ -11,16 +11,16 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ProductCurrentAmount {
 
     @Id
     @OneToOne
     private Product product;
 
-    private Integer currentAmount;
+    private Long currentAmount;
 
     @Override
     public final boolean equals(Object o) {

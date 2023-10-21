@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,6 +25,16 @@ public class Shipment {
     private Product product;
 
     private Integer amount;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "shipment_handling",
+    joinColumns = {@JoinColumn(name = "shipment_id")},
+    inverseJoinColumns = {@JoinColumn(name = "working_team_id")})
+    private Set<WorkingTeam> workingTeams = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {

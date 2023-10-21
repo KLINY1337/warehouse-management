@@ -1,13 +1,13 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,6 +22,14 @@ public class EquipmentType {
     private Long id;
 
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, mappedBy = "equipmentTypes")
+    @JsonIgnore
+    private Set<Equipment> equipments = new HashSet<>();
 
     @Override
     public final boolean equals(Object o) {
