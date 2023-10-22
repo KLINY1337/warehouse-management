@@ -20,6 +20,8 @@ public class Equipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @ManyToMany(fetch = FetchType.LAZY,
     cascade = {
             CascadeType.PERSIST,
