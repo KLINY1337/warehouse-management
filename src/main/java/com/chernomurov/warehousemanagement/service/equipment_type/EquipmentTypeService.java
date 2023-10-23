@@ -1,13 +1,11 @@
 package com.chernomurov.warehousemanagement.service.equipment_type;
 
-import com.chernomurov.warehousemanagement.entity.Equipment;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
-
-import java.util.Set;
+import org.springframework.http.RequestEntity;
 
 public interface EquipmentTypeService {
-    void createEquipmentType(String name);
+    EquipmentType createEquipmentType(RequestEntity<EquipmentType> name);
     EquipmentType getEquipmentTypeById(Long id);
-    void updateEquipmentType(Long id, String name);
+    int updateEquipmentType(Long id, RequestEntity<EquipmentType> request);
     void deleteEquipmentTypeById(Long id);
 }
