@@ -1,5 +1,6 @@
 package com.chernomurov.warehousemanagement.entity;
 
+import com.chernomurov.warehousemanagement.entity.id.ShipmentId;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -13,11 +14,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(ShipmentId.class)
 public class SupplierContract {
 
     @Id
-    @OneToOne
-    private Shipment shipment;
+//    @OneToOne
+//    @JoinColumn(name = "shipment_id")
+    @Column(name = "shipment_id")
+    private Long shipmentId;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
@@ -41,11 +45,11 @@ public class SupplierContract {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         SupplierContract that = (SupplierContract) o;
-        return getShipment() != null && Objects.equals(getShipment(), that.getShipment());
+        return getShipmentId() != null && Objects.equals(getShipmentId(), that.getShipmentId());
     }
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return Objects.hash(shipmentId);
     }
 }

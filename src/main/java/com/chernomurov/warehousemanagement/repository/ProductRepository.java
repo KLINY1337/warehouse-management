@@ -1,8 +1,9 @@
 package com.chernomurov.warehousemanagement.repository;
 
+import com.chernomurov.warehousemanagement.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductRepository, String> {
+public interface ProductRepository extends JpaRepository<Product, String> {
 }

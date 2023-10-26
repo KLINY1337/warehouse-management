@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SupplierContractRepository extends JpaRepository<SupplierContract, Shipment> {
+public interface SupplierContractRepository extends JpaRepository<SupplierContract, Long> {
 }

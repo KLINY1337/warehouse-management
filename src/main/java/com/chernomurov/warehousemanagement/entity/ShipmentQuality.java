@@ -1,8 +1,7 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import com.chernomurov.warehousemanagement.entity.id.ShipmentId;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -15,11 +14,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(ShipmentId.class)
 public class ShipmentQuality {
 
     @Id
-    @OneToOne
-    private Shipment shipment;
+//    @OneToOne
+//    @JoinColumn(name = "shipment_id")
+    @Column(name = "shipment_id")
+    private Long shipmentId;
 
     private BigDecimal qualityCoefficient;
 
@@ -31,7 +33,7 @@ public class ShipmentQuality {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         ShipmentQuality that = (ShipmentQuality) o;
-        return getShipment() != null && Objects.equals(getShipment(), that.getShipment());
+        return getShipmentId() != null && Objects.equals(getShipmentId(), that.getShipmentId());
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Order {
+public class Ordering {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +32,13 @@ public class Order {
     private LocalDateTime date;
 
     @ManyToMany(fetch = FetchType.LAZY,
-    cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(name = "order_handling",
-    joinColumns = {@JoinColumn(name = "order_id")},
-    inverseJoinColumns = {@JoinColumn(name = "working_team_id")})
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "working_team_id")})
     private Set<WorkingTeam> workingTeams = new HashSet<>();
 
     @ManyToOne
@@ -52,8 +52,8 @@ public class Order {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Order order = (Order) o;
-        return getId() != null && Objects.equals(getId(), order.getId());
+        Ordering ordering = (Ordering) o;
+        return getId() != null && Objects.equals(getId(), ordering.getId());
     }
 
     @Override

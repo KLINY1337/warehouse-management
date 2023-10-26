@@ -1,8 +1,10 @@
 package com.chernomurov.warehousemanagement.entity;
 
+import com.chernomurov.warehousemanagement.entity.id.ProductId;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.IdClass;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -14,11 +16,14 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(ProductId.class)
 public class ProductMinimalAmount {
 
     @Id
-    @OneToOne
-    private Product product;
+//    @OneToOne
+//    @JoinColumn(name = "product_article_number")
+    @Column(name = "product_article_number")
+    private String productArticleNumber;
 
     private Integer minimalAmount;
 
@@ -30,11 +35,11 @@ public class ProductMinimalAmount {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         ProductMinimalAmount that = (ProductMinimalAmount) o;
-        return getProduct() != null && Objects.equals(getProduct(), that.getProduct());
+        return getProductArticleNumber() != null && Objects.equals(getProductArticleNumber(), that.getProductArticleNumber());
     }
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return Objects.hash(productArticleNumber);
     }
 }

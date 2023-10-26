@@ -35,7 +35,7 @@ public class WorkingTeam {
             CascadeType.MERGE
     }, mappedBy = "workingTeams")
     @JsonIgnore
-    private Set<Order> orders = new HashSet<>();
+    private Set<Ordering> orderings = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
