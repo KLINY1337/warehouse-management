@@ -1,27 +1,26 @@
 package com.chernomurov.warehousemanagement.util;
 
-import org.springframework.http.RequestEntity;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ValidationUtils {
 
-    public static <T> void validateRequest(RequestEntity<T> request, List<String> fieldNamesToValidate) {
-        T requestBody = Objects.requireNonNull(request.getBody());
+    public static <T> void validateEntity(T entity, List<String> fieldNamesToValidate) {
         StringBuilder messageBuilder = new StringBuilder();
-        ReflectionUtils.doWithFields(request.getClass(), field -> {
+        ReflectionUtils.doWithFields(entity.getClass(), field -> {
+            field.setAccessible(true);
             String fieldName = field.getName();
-            Object fieldValue = field.get(requestBody);
+            Object fieldValue = field.get(entity);
             if (fieldNamesToValidate.contains(fieldName) && fieldValue == null) {
-                String fieldErrorMessage = "Field '" + fieldName + "' of request body is not specified.\n";
+                String fieldErrorMessage = "Field '" + fieldName + "' of entity body is not specified.\n";
                 messageBuilder.append(fieldErrorMessage);
             }
+            field.setAccessible(false);
         });
 
         if (!messageBuilder.isEmpty()) {
-            String errorMessage = messageBuilder.substring(0, messageBuilder.lastIndexOf("\n") - 1);
+            String errorMessage = messageBuilder.substring(0, messageBuilder.lastIndexOf("\n"));
             throw new RuntimeException(errorMessage);
         }
     }

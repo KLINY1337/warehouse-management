@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<AppError> catchException(Exception e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new AppError(HttpStatus.UNPROCESSABLE_ENTITY.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

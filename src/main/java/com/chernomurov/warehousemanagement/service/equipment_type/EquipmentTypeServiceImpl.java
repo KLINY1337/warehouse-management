@@ -5,12 +5,11 @@ import com.chernomurov.warehousemanagement.repository.EquipmentTypeRepository;
 import com.chernomurov.warehousemanagement.util.ValidationUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,19 +18,14 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     private final EquipmentTypeRepository equipmentTypeRepository;
 
     @Override
-    public EquipmentType createEquipmentType(RequestEntity<EquipmentType> request) {
+    public EquipmentType createEquipmentType(EquipmentType equipmentType) {
 
         List<String> fieldNamesToValidate = new ArrayList<>();
         fieldNamesToValidate.add("name");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+        ValidationUtils.validateEntity(equipmentType, fieldNamesToValidate);
 
-        EquipmentType equipmentType = EquipmentType.builder()
-                .name(request.getBody().getName())
-                .build();
         return equipmentTypeRepository.save(equipmentType);
     }
-
-
 
     @Override
     public EquipmentType getEquipmentTypeById(Long id) {
@@ -39,18 +33,28 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     }
 
     @Override
-    public int updateEquipmentType(Long id, RequestEntity<EquipmentType> request) {
+    public EquipmentType updateEquipmentType(Long id, EquipmentType equipmentType) {
         List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("id");
         fieldNamesToValidate.add("name");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+        ValidationUtils.validateEntity(equipmentType, fieldNamesToValidate);
 
-        EquipmentType requestBody = Objects.requireNonNull(request.getBody());
-        return equipmentTypeRepository.updateNameById(requestBody.getName(), requestBody.getId());
+        equipmentType.setId(id);
+
+        if (equipmentTypeRepository.existsById(id)){
+            return equipmentTypeRepository.save(equipmentType);
+        }
+        else {
+            throw new  EntityNotFoundException("Тип снаряжения с id " + id + " не найден, действие отменено.");
+        }
     }
 
     @Override
     public void deleteEquipmentTypeById(Long id) {
-        equipmentTypeRepository.deleteById(id);
+        if (equipmentTypeRepository.existsById(id)){
+            equipmentTypeRepository.deleteById(id);
+        }
+        else {
+            throw new  EntityNotFoundException("Тип снаряжения с id " + id + " не найден, действие отменено.");
+        }
     }
 }
