@@ -1,6 +1,6 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import com.chernomurov.warehousemanagement.entity.id.SupplierId;
+import com.chernomurov.warehousemanagement.entity.id_class.SupplierId;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;

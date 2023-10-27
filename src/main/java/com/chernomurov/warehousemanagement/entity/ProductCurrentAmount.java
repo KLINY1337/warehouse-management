@@ -1,6 +1,6 @@
 package com.chernomurov.warehousemanagement.entity;
 
-import com.chernomurov.warehousemanagement.entity.id.ProductId;
+import com.chernomurov.warehousemanagement.entity.id_class.ProductId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

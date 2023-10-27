@@ -1,4 +1,4 @@
-package com.chernomurov.warehousemanagement.entity.id;
+package com.chernomurov.warehousemanagement.entity.id_class;
 
 import lombok.Data;
 

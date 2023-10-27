@@ -14,7 +14,9 @@
     <name>warehouse-management</name>
     <description>warehouse-management</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>18</java.version>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>

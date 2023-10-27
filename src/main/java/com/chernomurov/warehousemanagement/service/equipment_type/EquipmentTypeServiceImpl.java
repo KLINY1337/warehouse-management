@@ -1,5 +1,6 @@
 package com.chernomurov.warehousemanagement.service.equipment_type;
 
+import com.chernomurov.warehousemanagement.custom.http.request.EquipmentTypeRequest;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.repository.EquipmentTypeRepository;
 import com.chernomurov.warehousemanagement.util.ValidationUtils;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +18,21 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     private final EquipmentTypeRepository equipmentTypeRepository;
 
     @Override
-    public EquipmentType createEquipmentType(EquipmentType equipmentType) {
-
-        List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("name");
-        ValidationUtils.validateEntity(equipmentType, fieldNamesToValidate);
+    public EquipmentType createEquipmentType(EquipmentTypeRequest request) {
+        EquipmentType equipmentType = getEquipmentTypeFromRequest(null, request);
 
         return equipmentTypeRepository.save(equipmentType);
+    }
+
+    private static EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
+        List<String> fieldNamesToValidate = new ArrayList<>();
+        fieldNamesToValidate.add("name");
+        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+
+        return EquipmentType.builder()
+                .id(id)
+                .name(request.name())
+                .build();
     }
 
     @Override
@@ -33,18 +41,14 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     }
 
     @Override
-    public EquipmentType updateEquipmentType(Long id, EquipmentType equipmentType) {
-        List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("name");
-        ValidationUtils.validateEntity(equipmentType, fieldNamesToValidate);
-
-        equipmentType.setId(id);
+    public EquipmentType updateEquipmentType(Long id, EquipmentTypeRequest request) {
+        EquipmentType equipmentType = getEquipmentTypeFromRequest(id, request);
 
         if (equipmentTypeRepository.existsById(id)){
             return equipmentTypeRepository.save(equipmentType);
         }
         else {
-            throw new  EntityNotFoundException("Тип снаряжения с id " + id + " не найден, действие отменено.");
+            throw new  EntityNotFoundException("Тип снаряжения с " + id + " не найден, действие отменено.");
         }
     }
 

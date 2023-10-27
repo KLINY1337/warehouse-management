@@ -1,5 +1,6 @@
 package com.chernomurov.warehousemanagement.controller;
 
+import com.chernomurov.warehousemanagement.custom.http.request.EquipmentTypeRequest;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.service.equipment_type.EquipmentTypeService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class EquipmentTypeController {
     private final EquipmentTypeService equipmentTypeService;
 
     @PostMapping
-    public EquipmentType createEquipmentType(@RequestBody EquipmentType equipmentType) {
-        return equipmentTypeService.createEquipmentType(equipmentType);
+    public EquipmentType createEquipmentType(@RequestBody EquipmentTypeRequest request) {
+        return equipmentTypeService.createEquipmentType(request);
     }
 
     @GetMapping("/{id}")
@@ -26,8 +27,8 @@ public class EquipmentTypeController {
     }
 
     @PutMapping("/{id}")
-    public EquipmentType updateEquipmentType(@PathVariable Long id, @RequestBody EquipmentType equipmentType) {
-        return equipmentTypeService.updateEquipmentType(id, equipmentType);
+    public EquipmentType updateEquipmentType(@PathVariable Long id, @RequestBody EquipmentTypeRequest request) {
+        return equipmentTypeService.updateEquipmentType(id, request);
     }
 
     @DeleteMapping("/{id}")
