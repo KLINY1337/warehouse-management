@@ -60,7 +60,7 @@ public class EquipmentServiceImpl implements EquipmentService{
         ValidationUtils.validateRequest(request, fieldNamesToValidate);
 
         Set<EquipmentType> equipmentTypes = new HashSet<>();
-        for (EquipmentTypeDto e : request.equipmentTypeIds()) {
+        for (EquipmentTypeDto e : request.equipmentTypes()) {
             EquipmentType equipmentType = equipmentTypeRepository.findById(e.id())
                     .orElseThrow(() -> new EntityNotFoundException("Тип снаряжения с id " + e.id() + " не найдено, действие отменено."));
             equipmentTypes.add(equipmentType);
