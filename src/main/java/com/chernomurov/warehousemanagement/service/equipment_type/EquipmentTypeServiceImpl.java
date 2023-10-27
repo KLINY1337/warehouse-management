@@ -20,19 +20,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     @Override
     public EquipmentType createEquipmentType(EquipmentTypeRequest request) {
         EquipmentType equipmentType = getEquipmentTypeFromRequest(null, request);
-
         return equipmentTypeRepository.save(equipmentType);
-    }
-
-    private static EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
-        List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("name");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
-
-        return EquipmentType.builder()
-                .id(id)
-                .name(request.name())
-                .build();
     }
 
     @Override
@@ -60,5 +48,16 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         else {
             throw new  EntityNotFoundException("Тип снаряжения с id " + id + " не найден, действие отменено.");
         }
+    }
+
+    private static EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
+        List<String> fieldNamesToValidate = new ArrayList<>();
+        fieldNamesToValidate.add("name");
+        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+
+        return EquipmentType.builder()
+                .id(id)
+                .name(request.name())
+                .build();
     }
 }
