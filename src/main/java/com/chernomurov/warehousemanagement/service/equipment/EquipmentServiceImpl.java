@@ -6,10 +6,9 @@ import com.chernomurov.warehousemanagement.entity.Equipment;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.repository.EquipmentRepository;
 import com.chernomurov.warehousemanagement.repository.EquipmentTypeRepository;
-import com.chernomurov.warehousemanagement.util.ValidationUtils;
+import com.chernomurov.warehousemanagement.util.RequestUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,7 +22,12 @@ public class EquipmentServiceImpl implements EquipmentService{
 
     @Override
     public Equipment createEquipment(EquipmentRequest request) {
+        List<String> fieldNamesToValidate = new ArrayList<>();
+        fieldNamesToValidate.add("name");
+        fieldNamesToValidate.add("equipmentTypes");
+        RequestUtils.validateRequest(request, fieldNamesToValidate);
         Equipment equipment = getEquipmentFromRequest(null, request);
+        //Equipment equipment = RequestUtils.getEntityFromRequest(request, Equipment.class);
         return equipmentRepository.save(equipment);
     }
 
@@ -55,10 +59,7 @@ public class EquipmentServiceImpl implements EquipmentService{
     }
 
     private Equipment getEquipmentFromRequest(Long id, EquipmentRequest request) {
-        List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("name");
-        fieldNamesToValidate.add("equipmentTypes");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+
 
         Set<EquipmentType> equipmentTypes = new HashSet<>();
         for (EquipmentTypeDto e : request.equipmentTypes()) {

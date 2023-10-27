@@ -1,12 +1,9 @@
 package com.chernomurov.warehousemanagement.service.user_role;
 
-import com.chernomurov.warehousemanagement.custom.http.request.EquipmentTypeRequest;
 import com.chernomurov.warehousemanagement.custom.http.request.UserRoleRequest;
-import com.chernomurov.warehousemanagement.entity.EquipmentType;
-import com.chernomurov.warehousemanagement.entity.User;
 import com.chernomurov.warehousemanagement.entity.UserRole;
 import com.chernomurov.warehousemanagement.repository.UserRoleRepository;
-import com.chernomurov.warehousemanagement.util.ValidationUtils;
+import com.chernomurov.warehousemanagement.util.RequestUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,7 +53,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     private UserRole getUserRoleFromRequest(Long id, UserRoleRequest request) {
         List<String> fieldNamesToValidate = new ArrayList<>();
         fieldNamesToValidate.add("name");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+        RequestUtils.validateRequest(request, fieldNamesToValidate);
 
         return UserRole.builder()
                 .id(id)

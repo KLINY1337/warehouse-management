@@ -3,7 +3,7 @@ package com.chernomurov.warehousemanagement.service.equipment_type;
 import com.chernomurov.warehousemanagement.custom.http.request.EquipmentTypeRequest;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.repository.EquipmentTypeRepository;
-import com.chernomurov.warehousemanagement.util.ValidationUtils;
+import com.chernomurov.warehousemanagement.util.RequestUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
     private EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
         List<String> fieldNamesToValidate = new ArrayList<>();
         fieldNamesToValidate.add("name");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+        RequestUtils.validateRequest(request, fieldNamesToValidate);
 
         return EquipmentType.builder()
                 .id(id)

@@ -6,7 +6,7 @@ import com.chernomurov.warehousemanagement.entity.User;
 import com.chernomurov.warehousemanagement.entity.UserRole;
 import com.chernomurov.warehousemanagement.repository.UserRepository;
 import com.chernomurov.warehousemanagement.repository.UserRoleRepository;
-import com.chernomurov.warehousemanagement.util.ValidationUtils;
+import com.chernomurov.warehousemanagement.util.RequestUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         fieldNamesToValidate.add("name");
         fieldNamesToValidate.add("surname");
         fieldNamesToValidate.add("password");
-        ValidationUtils.validateRequest(request, fieldNamesToValidate);
+        RequestUtils.validateRequest(request, fieldNamesToValidate);
 
         Set<UserRole> userRoles = new HashSet<>();
         for (UserRoleDto e : request.userRoles()) {
