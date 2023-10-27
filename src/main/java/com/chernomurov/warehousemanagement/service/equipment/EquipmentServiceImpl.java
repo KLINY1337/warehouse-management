@@ -9,6 +9,7 @@ import com.chernomurov.warehousemanagement.repository.EquipmentTypeRepository;
 import com.chernomurov.warehousemanagement.util.ValidationUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

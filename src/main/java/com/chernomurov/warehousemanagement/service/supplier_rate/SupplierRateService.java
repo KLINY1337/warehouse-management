@@ -1,13 +1,14 @@
 package com.chernomurov.warehousemanagement.service.supplier_rate;
 
+import com.chernomurov.warehousemanagement.custom.http.request.SupplierRateRequest;
 import com.chernomurov.warehousemanagement.entity.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface SupplierRateService {
-    void createSupplierRate(Supplier supplier, BigDecimal reliabilityRate);
+    SupplierRate createSupplierRate(SupplierRateRequest request);
     SupplierRate getSupplierRateBySupplier(Supplier supplier);
-    void updateSupplierRate(Supplier supplier, BigDecimal reliabilityRate);
+    SupplierRate updateSupplierRate(Supplier supplier, SupplierRateRequest request);
     void deleteSupplierRateBySupplier(Supplier supplier);
 }

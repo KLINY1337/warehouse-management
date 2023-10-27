@@ -1,5 +1,6 @@
 package com.chernomurov.warehousemanagement.service.product;
 
+import com.chernomurov.warehousemanagement.custom.http.request.ProductRequest;
 import com.chernomurov.warehousemanagement.entity.Equipment;
 import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.entity.Product;
@@ -8,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 public interface ProductService {
-    void createProduct(String articleNumber, String name, String description, BigDecimal price);
+    Product createProduct(ProductRequest request);
     Product getProductByArticleNumber(String articleNumber);
-    void updateProduct(String articleNumber, String name, String description, BigDecimal price);
+    Product updateProduct(String articleNumber, ProductRequest request);
     void deleteProductByArticleNumber(String articleNumber);
 }
