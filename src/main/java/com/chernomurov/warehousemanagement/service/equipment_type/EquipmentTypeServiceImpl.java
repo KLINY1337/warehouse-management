@@ -50,7 +50,7 @@ public class EquipmentTypeServiceImpl implements EquipmentTypeService {
         }
     }
 
-    private static EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
+    private EquipmentType getEquipmentTypeFromRequest(Long id, EquipmentTypeRequest request) {
         List<String> fieldNamesToValidate = new ArrayList<>();
         fieldNamesToValidate.add("name");
         ValidationUtils.validateRequest(request, fieldNamesToValidate);

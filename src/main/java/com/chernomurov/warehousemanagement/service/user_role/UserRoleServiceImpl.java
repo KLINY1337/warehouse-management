@@ -53,7 +53,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         }
     }
 
-    private static UserRole getUserRoleFromRequest(Long id, UserRoleRequest request) {
+    private UserRole getUserRoleFromRequest(Long id, UserRoleRequest request) {
         List<String> fieldNamesToValidate = new ArrayList<>();
         fieldNamesToValidate.add("name");
         ValidationUtils.validateRequest(request, fieldNamesToValidate);

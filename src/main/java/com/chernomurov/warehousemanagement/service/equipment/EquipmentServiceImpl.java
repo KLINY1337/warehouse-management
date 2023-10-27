@@ -63,7 +63,7 @@ public class EquipmentServiceImpl implements EquipmentService{
         Set<EquipmentType> equipmentTypes = new HashSet<>();
         for (EquipmentTypeDto e : request.equipmentTypes()) {
             EquipmentType equipmentType = equipmentTypeRepository.findById(e.id())
-                    .orElseThrow(() -> new EntityNotFoundException("Тип снаряжения с id " + e.id() + " не найдено, действие отменено."));
+                    .orElseThrow(() -> new EntityNotFoundException("Снаряжение с id " + e.id() + " не найдено, действие отменено."));
             equipmentTypes.add(equipmentType);
         }
 
