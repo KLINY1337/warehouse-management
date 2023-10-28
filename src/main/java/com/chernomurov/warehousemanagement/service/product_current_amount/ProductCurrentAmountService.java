@@ -9,7 +9,7 @@ import com.chernomurov.warehousemanagement.entity.ProductCurrentAmount;
 import java.util.Set;
 
 public interface ProductCurrentAmountService {
-    ProductCurrentAmount createProductCurrentAmount(ProductCurrentAmountRequest request);
+    ProductCurrentAmount createProductCurrentAmount(Product product, ProductCurrentAmountRequest request);
     ProductCurrentAmount getProductCurrentAmountByProduct(Product product);
     ProductCurrentAmount updateProductCurrentAmount(Product product, ProductCurrentAmountRequest request);
     void deleteProductCurrentAmountByProduct(Product product);
