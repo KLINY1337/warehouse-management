@@ -65,6 +65,11 @@ public class WorkingTeamServiceImpl implements WorkingTeamService {
     }
 
     private WorkingTeam getWorkingTeamFromRequest(Long id, WorkingTeamRequest request) {
+        List<String> fieldNamesToValidate = new ArrayList<>();
+        fieldNamesToValidate.add("manager");
+        fieldNamesToValidate.add("peopleAmount");
+        RequestUtils.validateRequest(request, fieldNamesToValidate);
+
         User manager = userRepository
                 .findById(request.manager().id())
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + request.manager().id() + " не найден, действие отменено."));
@@ -76,11 +81,6 @@ public class WorkingTeamServiceImpl implements WorkingTeamService {
         if (request.peopleAmount() <= 0) {
             throw new IndexOutOfBoundsException("Количество людей в бригаде не может быть меньше 1, действие отменено");
         }
-
-        List<String> fieldNamesToValidate = new ArrayList<>();
-        fieldNamesToValidate.add("manager");
-        fieldNamesToValidate.add("peopleAmount");
-        RequestUtils.validateRequest(request, fieldNamesToValidate);
 
         return WorkingTeam.builder()
                 .id(id)
