@@ -25,11 +25,11 @@ public class OrderingController {
 
     @PutMapping("/{id}")
     public Ordering updateOrder(@PathVariable Long id, @RequestBody OrderingRequest request) {
-        return updateOrder(id, request);
+        return orderingService.updateOrder(id, request);
     }
 
     @DeleteMapping("/{id}")
     public void deleteOrderById(@PathVariable Long id) {
-        deleteOrderById(id);
+        orderingService.deleteOrderById(id);
     }
 }
