@@ -6,7 +6,7 @@ import com.chernomurov.warehousemanagement.entity.Product;
 import com.chernomurov.warehousemanagement.entity.ProductMinimalAmount;
 
 public interface ProductMinimalAmountService {
-    ProductMinimalAmount createProductMinimalAmount(ProductMinimalAmountRequest request);
+    ProductMinimalAmount createProductMinimalAmount(Product product, ProductMinimalAmountRequest request);
     ProductMinimalAmount getProductMinimalAmountByProduct(Product product);
     ProductMinimalAmount updateProductMinimalAmount(Product product, ProductMinimalAmountRequest request);
     void deleteProductMinimalAmountByProduct(Product product);
