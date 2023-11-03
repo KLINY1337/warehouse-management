@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface SupplierRateService {
-    SupplierRate createSupplierRate(SupplierRateRequest request);
+    SupplierRate createSupplierRate(Supplier supplier, SupplierRateRequest request);
     SupplierRate getSupplierRateBySupplier(Supplier supplier);
     SupplierRate updateSupplierRate(Supplier supplier, SupplierRateRequest request);
     void deleteSupplierRateBySupplier(Supplier supplier);
