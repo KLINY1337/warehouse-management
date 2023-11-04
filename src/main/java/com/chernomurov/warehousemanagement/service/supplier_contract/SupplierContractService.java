@@ -6,7 +6,7 @@ import com.chernomurov.warehousemanagement.entity.*;
 import java.time.LocalDateTime;
 
 public interface SupplierContractService {
-    SupplierContract createSupplierContract(SupplierContractRequest request);
+    SupplierContract createSupplierContract(Shipment shipment, SupplierContractRequest request);
     SupplierContract getSupplierContractByShipment(Shipment shipment);
     SupplierContract updateSupplierContract(Shipment shipment, SupplierContractRequest request);
     void deleteSupplierContractByShipment(Shipment shipment);
