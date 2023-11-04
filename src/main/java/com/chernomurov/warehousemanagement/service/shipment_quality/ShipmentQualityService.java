@@ -9,7 +9,7 @@ import com.chernomurov.warehousemanagement.entity.ShipmentQuality;
 import java.math.BigDecimal;
 
 public interface ShipmentQualityService {
-    ShipmentQuality createShipmentQuality(ShipmentQualityRequest request);
+    ShipmentQuality createShipmentQuality(Shipment shipment, ShipmentQualityRequest request);
     ShipmentQuality getShipmentQualityByShipment(Shipment shipment);
     ShipmentQuality updateShipmentQuality(Shipment shipment, ShipmentQualityRequest request);
     void deleteShipmentQualityByShipment(Shipment shipment);
