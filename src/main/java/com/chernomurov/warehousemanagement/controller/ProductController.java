@@ -4,6 +4,7 @@ import com.chernomurov.warehousemanagement.custom.http.request.ProductRequest;
 import com.chernomurov.warehousemanagement.entity.Product;
 import com.chernomurov.warehousemanagement.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,18 +15,18 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public Product createProduct(@RequestBody ProductRequest request) {
-        return productService.createProduct(request);
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest request) {
+        return ResponseEntity.ok(productService.createProduct(request));
     }
 
     @GetMapping("/{articleNumber}")
-    public Product getProductByArticleNumber(@PathVariable String articleNumber) {
-        return productService.getProductByArticleNumber(articleNumber);
+    public ResponseEntity<Product> getProductByArticleNumber(@PathVariable String articleNumber) {
+        return ResponseEntity.ok(productService.getProductByArticleNumber(articleNumber));
     }
 
     @PutMapping("/{articleNumber}")
-    public Product updateProduct(@PathVariable String articleNumber, @RequestBody ProductRequest request) {
-        return productService.updateProduct(articleNumber, request);
+    public ResponseEntity<Product> updateProduct(@PathVariable String articleNumber, @RequestBody ProductRequest request) {
+        return ResponseEntity.ok(productService.updateProduct(articleNumber, request));
     }
 
     @DeleteMapping("/{articleNumber}")

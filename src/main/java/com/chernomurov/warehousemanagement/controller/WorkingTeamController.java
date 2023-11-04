@@ -4,6 +4,7 @@ import com.chernomurov.warehousemanagement.custom.http.request.WorkingTeamReques
 import com.chernomurov.warehousemanagement.entity.WorkingTeam;
 import com.chernomurov.warehousemanagement.service.working_team.WorkingTeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,18 +15,18 @@ public class WorkingTeamController {
     private final WorkingTeamService workingTeamService;
 
     @PostMapping
-    public WorkingTeam createWorkingTeam(@RequestBody WorkingTeamRequest request) {
-        return workingTeamService.createWorkingTeam(request);
+    public ResponseEntity<WorkingTeam> createWorkingTeam(@RequestBody WorkingTeamRequest request) {
+        return ResponseEntity.ok(workingTeamService.createWorkingTeam(request));
     }
 
     @GetMapping("/{id}")
-    public WorkingTeam getWorkingTeamById(@PathVariable Long id) {
-        return workingTeamService.getWorkingTeamById(id);
+    public ResponseEntity<WorkingTeam> getWorkingTeamById(@PathVariable Long id) {
+        return ResponseEntity.ok(workingTeamService.getWorkingTeamById(id));
     }
 
     @PutMapping("/{id}")
-    public WorkingTeam updateWorkingTeam(@PathVariable Long id, @RequestBody WorkingTeamRequest request) {
-        return workingTeamService.updateWorkingTeam(id, request);
+    public ResponseEntity<WorkingTeam> updateWorkingTeam(@PathVariable Long id, @RequestBody WorkingTeamRequest request) {
+        return ResponseEntity.ok(workingTeamService.updateWorkingTeam(id, request));
     }
 
     @DeleteMapping("/{id}")

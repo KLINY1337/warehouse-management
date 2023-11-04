@@ -4,6 +4,7 @@ import com.chernomurov.warehousemanagement.custom.http.request.UserRequest;
 import com.chernomurov.warehousemanagement.entity.User;
 import com.chernomurov.warehousemanagement.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,18 +15,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody UserRequest request) {
-        return userService.createUser(request);
+    public ResponseEntity<User> createUser(@RequestBody UserRequest request) {
+        return ResponseEntity.ok(userService.createUser(request));
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
-        return userService.updateUser(id, request);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
+        return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
     @DeleteMapping("/{id}")

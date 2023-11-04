@@ -6,6 +6,7 @@ import com.chernomurov.warehousemanagement.entity.Shipment;
 import com.chernomurov.warehousemanagement.entity.SupplierContract;
 import com.chernomurov.warehousemanagement.service.supplier_contract.SupplierContractService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -16,18 +17,18 @@ public class SupplierContractController {
     private final SupplierContractService supplierContractService;
 
     @PostMapping("/{shipment:\\d+}")
-    public SupplierContract createSupplierContract(@PathVariable("shipment") Shipment shipment, @RequestBody SupplierContractRequest request) {
-        return supplierContractService.createSupplierContract(shipment, request);
+    public ResponseEntity<SupplierContract> createSupplierContract(@PathVariable("shipment") Shipment shipment, @RequestBody SupplierContractRequest request) {
+        return ResponseEntity.ok(supplierContractService.createSupplierContract(shipment, request));
     }
 
     @GetMapping("/{shipment:\\d+}")
-    public SupplierContract getSupplierContractByShipment(@PathVariable("shipment") Shipment shipment) {
-        return supplierContractService.getSupplierContractByShipment(shipment);
+    public ResponseEntity<SupplierContract> getSupplierContractByShipment(@PathVariable("shipment") Shipment shipment) {
+        return ResponseEntity.ok(supplierContractService.getSupplierContractByShipment(shipment));
     }
 
     @PutMapping("/{shipment:\\d+}")
-    public SupplierContract updateSupplierContract(@PathVariable("shipment") Shipment shipment, @RequestBody SupplierContractRequest request) {
-        return supplierContractService.updateSupplierContract(shipment, request);
+    public ResponseEntity<SupplierContract> updateSupplierContract(@PathVariable("shipment") Shipment shipment, @RequestBody SupplierContractRequest request) {
+        return ResponseEntity.ok(supplierContractService.updateSupplierContract(shipment, request));
     }
 
     @DeleteMapping("/{shipment:\\d+}")

@@ -4,6 +4,7 @@ import com.chernomurov.warehousemanagement.custom.http.request.SupplierRequest;
 import com.chernomurov.warehousemanagement.entity.Supplier;
 import com.chernomurov.warehousemanagement.service.supplier.SupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,19 +15,21 @@ public class SupplierController {
     private final SupplierService supplierService;
 
     @PostMapping
-    public Supplier createSupplier(@RequestBody SupplierRequest request) {
-        return supplierService.createSupplier(request);
+    public ResponseEntity<Supplier> createSupplier(@RequestBody SupplierRequest request) {
+        return ResponseEntity.ok(supplierService.createSupplier(request));
     }
 
     @GetMapping("/{id}")
-    public Supplier getSupplierById(@PathVariable Long id) {
-        return supplierService.getSupplierById(id);
+    public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id) {
+        return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
 
-    public Supplier updateSupplier(@PathVariable Long id, @RequestBody SupplierRequest request) {
-        return supplierService.updateSupplier(id, request);
+    @PutMapping("/{id}")
+    public ResponseEntity<Supplier> updateSupplier(@PathVariable Long id, @RequestBody SupplierRequest request) {
+        return ResponseEntity.ok(supplierService.updateSupplier(id, request));
     }
 
+    @DeleteMapping("/{id}")
     public void deleteSupplierById(@PathVariable Long id) {
         supplierService.deleteSupplierById(id);
     }

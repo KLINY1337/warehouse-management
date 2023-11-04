@@ -5,6 +5,7 @@ import com.chernomurov.warehousemanagement.entity.EquipmentType;
 import com.chernomurov.warehousemanagement.service.equipment_type.EquipmentTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,19 +17,19 @@ public class EquipmentTypeController {
     private final EquipmentTypeService equipmentTypeService;
 
     @PostMapping
-    public EquipmentType createEquipmentType(@RequestBody EquipmentTypeRequest request) {
-        return equipmentTypeService.createEquipmentType(request);
+    public ResponseEntity<EquipmentType> createEquipmentType(@RequestBody EquipmentTypeRequest request) {
+        return ResponseEntity.ok(equipmentTypeService.createEquipmentType(request));
     }
 
     @GetMapping("/{id}")
-    public EquipmentType getEquipmentTypeById(@PathVariable Long id) {
-        return equipmentTypeService.getEquipmentTypeById(id);
+    public ResponseEntity<EquipmentType> getEquipmentTypeById(@PathVariable Long id) {
+        return ResponseEntity.ok(equipmentTypeService.getEquipmentTypeById(id));
 
     }
 
     @PutMapping("/{id}")
-    public EquipmentType updateEquipmentType(@PathVariable Long id, @RequestBody EquipmentTypeRequest request) {
-        return equipmentTypeService.updateEquipmentType(id, request);
+    public ResponseEntity<EquipmentType> updateEquipmentType(@PathVariable Long id, @RequestBody EquipmentTypeRequest request) {
+        return ResponseEntity.ok(equipmentTypeService.updateEquipmentType(id, request));
     }
 
     @DeleteMapping("/{id}")

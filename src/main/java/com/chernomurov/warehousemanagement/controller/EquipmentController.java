@@ -4,6 +4,7 @@ import com.chernomurov.warehousemanagement.custom.http.request.EquipmentRequest;
 import com.chernomurov.warehousemanagement.entity.Equipment;
 import com.chernomurov.warehousemanagement.service.equipment.EquipmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -14,18 +15,18 @@ public class EquipmentController {
     private final EquipmentService equipmentService;
 
     @PostMapping
-    public Equipment createEquipment(@RequestBody EquipmentRequest request) {
-        return equipmentService.createEquipment(request);
+    public ResponseEntity<Equipment> createEquipment(@RequestBody EquipmentRequest request) {
+        return ResponseEntity.ok(equipmentService.createEquipment(request));
     }
 
     @GetMapping("/{id}")
-    public Equipment getEquipmentById(@PathVariable Long id) {
-        return equipmentService.getEquipmentById(id);
+    public ResponseEntity<Equipment> getEquipmentById(@PathVariable Long id) {
+        return ResponseEntity.ok(equipmentService.getEquipmentById(id));
     }
 
     @PutMapping("/{id}")
-    public Equipment updateEquipment(@PathVariable Long id, @RequestBody EquipmentRequest request) {
-        return equipmentService.updateEquipment(id, request);
+    public ResponseEntity<Equipment> updateEquipment(@PathVariable Long id, @RequestBody EquipmentRequest request) {
+        return ResponseEntity.ok(equipmentService.updateEquipment(id, request));
     }
 
     @DeleteMapping("/{id}")

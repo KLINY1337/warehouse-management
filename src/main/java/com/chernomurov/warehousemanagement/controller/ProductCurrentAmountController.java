@@ -8,6 +8,7 @@ import com.chernomurov.warehousemanagement.entity.ProductMinimalAmount;
 import com.chernomurov.warehousemanagement.service.product_current_amount.ProductCurrentAmountService;
 import com.chernomurov.warehousemanagement.service.product_minimal_amount.ProductMinimalAmountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -18,18 +19,18 @@ public class ProductCurrentAmountController {
     private final ProductCurrentAmountService productCurrentAmountService;
 
     @PostMapping("/{product:\\d+}")
-    public ProductCurrentAmount createProductCurrentAmount(@PathVariable("product") Product product, @RequestBody ProductCurrentAmountRequest request) {
-        return productCurrentAmountService.createProductCurrentAmount(product, request);
+    public ResponseEntity<ProductCurrentAmount> createProductCurrentAmount(@PathVariable("product") Product product, @RequestBody ProductCurrentAmountRequest request) {
+        return ResponseEntity.ok(productCurrentAmountService.createProductCurrentAmount(product, request));
     }
 
     @GetMapping("/{product:\\d+}")
-    public ProductCurrentAmount getProductCurrentAmountByProduct(@PathVariable("product") Product product) {
-        return productCurrentAmountService.getProductCurrentAmountByProduct(product);
+    public ResponseEntity<ProductCurrentAmount> getProductCurrentAmountByProduct(@PathVariable("product") Product product) {
+        return ResponseEntity.ok(productCurrentAmountService.getProductCurrentAmountByProduct(product));
     }
 
     @PutMapping("/{product:\\d+}")
-    public ProductCurrentAmount updateProductCurrentAmount(@PathVariable("product") Product product, @RequestBody ProductCurrentAmountRequest request) {
-        return updateProductCurrentAmount(product, request);
+    public ResponseEntity<ProductCurrentAmount> updateProductCurrentAmount(@PathVariable("product") Product product, @RequestBody ProductCurrentAmountRequest request) {
+        return ResponseEntity.ok(productCurrentAmountService.updateProductCurrentAmount(product, request));
     }
 
     @DeleteMapping("/{product:\\d+}")
